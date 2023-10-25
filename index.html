@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Tic Tac Toe</title>
+		<link rel="stylesheet" href="./style.css" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="shortcut icon" href="img/favicon.png" />
+	</head>
+
+	<body>
+		<div class="new-game">
+			<a class="btn newBtn">New game</a>
+		</div>
+
+		<div class="game">
+			<div class="marker">
+				<span>Player 1 marker (<u>X</u>/O)</span>
+				<select class="marker__input">
+					<option value="">----</option>
+					<option value="O">X</option>
+					<option value="X">O</option>
+				</select>
+			</div>
+
+			<div class="player">
+				<span>Player 1</span>
+				<input type="text" class="player__1" />
+
+				<span>Player 2</span>
+				<input type="text" class="player__2" />
+			</div>
+
+			<a class="btn startBtn">Start game</a>
+		</div>
+
+		<div class="notif">Welcome!</div>
+
+		<div class="container">
+			<div class="board">
+				<div class="row">
+					<div class="cell cell-7" data-id="6">X</div>
+					<div class="cell cell-8" data-id="7">O</div>
+					<div class="cell cell-9" data-id="8">X</div>
+				</div>
+
+				<div class="row">
+					<div class="cell cell-4" data-id="3">O</div>
+					<div class="cell cell-5" data-id="4">X</div>
+					<div class="cell cell-6" data-id="5">O</div>
+				</div>
+
+				<div class="row">
+					<div class="cell cell-1" data-id="0">X</div>
+					<div class="cell cell-2" data-id="1">O</div>
+					<div class="cell cell-3" data-id="2">X</div>
+				</div>
+			</div>
+		</div>
+
+		<footer class="footer">
+			<a href="http://github.com/cyber-mat/tictactoe_js" target="_blank"
+				>&copy; Olamide Olaniyan</a
+			>
+		</footer>
+
+		<script src="js/script.js"></script>
+	</body>
+</html>
