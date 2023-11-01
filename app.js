@@ -18,29 +18,30 @@ const DOM = {
 	startPage: document.querySelector('.game'),
 	cellArr: Array.from(document.querySelectorAll('.cell')),
 };
-
 const startGame = () => {
-	DOM.startGameBtn.addEventListener('click', (e) => {
-		// GET PLAYER 1 MARKER
-		marker1 = DOM.markerSelectorInput.value;
-		// SET PLAYER MARKER
-		marker1 === 'X' ? (marker2 = 'O') : (marker2 = 'X');
-		// GET PLAYER MONICKER
-		DOM.playerOneInput.value
-			? (player1 = DOM.playerOneInput.value)
-			: (player1 = 'Player 1');
+	// GET PLAYER 1 MARKER
+	marker1 = DOM.markerSelectorInput.value;
+	// SET PLAYER MARKER
+	marker1 === 'X' ? (marker2 = 'O') : (marker2 = 'X');
+	// GET PLAYER MONICKER
+	DOM.playerOneInput.value
+		? (player1 = DOM.playerOneInput.value)
+		: (player1 = 'Player 1');
 
-		// RENDER GAMEBOARD
-		DOM.startPage.style.opacity = 0;
-		DOM.startPage.style.visibility = 'hidden';
-		DOM.gameBoard.style.opacity = 1;
-		DOM.gameBoard.style.visibility = 'visible';
+	// RENDER GAMEBOARD
+	DOM.startPage.style.opacity = 0;
+	DOM.startPage.style.visibility = 'hidden';
+	DOM.gameBoard.style.opacity = 1;
+	DOM.gameBoard.style.visibility = 'visible';
 
-		// RESET GAMEBOARD DISPLAY
-		DOM.GITcellArr.forEach((cell) => {
-			cell.textContent = '';
-		});
+	// RESET GAMEBOARD DISPLAY
+	DOM.cellArr.forEach((cell) => {
+		cell.textContent = '';
 	});
 };
 
-startGame();
+// DOM.startGameBtn.addEventListener('click', startGame);
+DOM.startPage.addEventListener('submit', (e) => {
+	startGame();
+	e.preventDefault();
+});

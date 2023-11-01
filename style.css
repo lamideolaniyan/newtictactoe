@@ -248,6 +248,8 @@ a:visited {
 	box-shadow: var(--shadow);
 }
 .game .btn {
+	border: none;
+	background-color: inherit;
 	color: #fff;
 	margin: 0 1rem;
 	padding: 1rem;
