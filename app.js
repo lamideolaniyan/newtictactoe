@@ -12,6 +12,7 @@ let player2 = 'AI';
 let currentPlayer = '';
 const playerArr = [];
 const compArr = [];
+const cellIdArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 const DOM = {
 	markerSelectorInput: document.querySelector('.marker__input'),
@@ -58,8 +59,8 @@ const getCell = (cell) => {
 
 const computerPlay = () => {
 	// const compCell = Math.round(Math.random() * 8);
-	const cellIdArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 	let compCell;
+	cellIdArr.sort(() => Math.random() - 0.5);
 
 	for (let i = 0; i < cellIdArr.length; i++) {
 		if (playerArr.indexOf(cellIdArr[i]) < 0) {
