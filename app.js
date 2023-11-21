@@ -9,7 +9,9 @@ let marker1;
 let marker2;
 let player1 = '';
 let player2 = 'AI';
+let currentPlayer = '';
 const playerArr = [];
+const compArr = [];
 
 const DOM = {
 	markerSelectorInput: document.querySelector('.marker__input'),
@@ -45,14 +47,46 @@ const startGame = () => {
 
 const getCell = (cell) => {
 	const selectedCell = +cell.dataset.id;
-	playerArr.push(selectedCell);
 
+	if (playerArr.indexOf(selectedCell) < 0) {
+		playerArr.push(selectedCell);
+	}
 	console.log(playerArr);
+	currentPlayer = player1;
+	displayMarker(cell);
+};
+
+const computerPlay = () => {
+	// const compCell = Math.round(Math.random() * 8);
+	const cellIdArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+	let compCell;
+
+	for (let i = 0; i < cellIdArr.length; i++) {
+		if (playerArr.indexOf(cellIdArr[i]) < 0) {
+			compCell = cellIdArr[i];
+			compArr.push(compCell);
+			cellIdArr.splice(i, 1);
+			console.log(compCell);
+			console.log(cellIdArr);
+			break;
+		}
+	}
+	currentPlayer = player2;
+	displayMarker(compCell);
 };
 
 const displayMarker = (cell) => {
-	cell.textContent = marker1;
+	if (currentPlayer === player1) {
+		cell.textContent = marker1;
+	} else if (currentPlayer === player2) {
+		DOM.cellArr.forEach((c) => {
+			if (+c.dataset.id === cell) {
+				c.textContent = marker2;
+			}
+		});
+	}
 };
+
 const newGame = () => {};
 
 // EVENT LISTENERS
@@ -65,6 +99,6 @@ DOM.startPage.addEventListener('submit', (e) => {
 DOM.cellArr.forEach((cell) =>
 	cell.addEventListener('click', (e) => {
 		getCell(e.target);
-		displayMarker(e.target);
+		computerPlay();
 	})
 );
