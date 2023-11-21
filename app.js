@@ -10,9 +10,9 @@ let marker2;
 let player1 = '';
 let player2 = 'AI';
 let currentPlayer = '';
-const playerArr = [];
-const compArr = [];
-const cellIdArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+let playerArr = [];
+let compArr = [];
+let cellIdArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 const DOM = {
 	markerSelectorInput: document.querySelector('.marker__input'),
@@ -21,8 +21,9 @@ const DOM = {
 	gameBoard: document.querySelector('.container'),
 	startPage: document.querySelector('.game'),
 	cellArr: Array.from(document.querySelectorAll('.cell')),
-	newGameBtn: Array.from(document.querySelectorAll('.newBtn')),
+	newGameBtn: document.querySelector('.newBtn'),
 };
+
 const startGame = () => {
 	// GET PLAYER 1 MARKER
 	marker1 = DOM.markerSelectorInput.value;
@@ -92,10 +93,28 @@ const displayMarker = (cell) => {
 	}
 };
 
-const newGame = () => {};
+const newGame = () => {
+	marker1 = '';
+	marker2 = '';
+	player1 = '';
+	currentPlayer = '';
+	playerArr = [];
+	compArr = [];
+	cellIdArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+	// RERENDER DISPLAY
+	DOM.startPage.style.opacity = 1;
+	DOM.startPage.style.visibility = 'visible';
+	DOM.gameBoard.style.opacity = 0;
+	DOM.gameBoard.style.visibility = 'hidden';
+
+	// RESET GAMEBOARD DISPLAY
+	DOM.cellArr.forEach((cell) => {
+		cell.textContent = '';
+	});
+};
 
 // EVENT LISTENERS
-// DOM.startGameBtn.addEventListener('click', startGame);
 DOM.startPage.addEventListener('submit', (e) => {
 	startGame();
 	e.preventDefault();
@@ -107,3 +126,5 @@ DOM.cellArr.forEach((cell) =>
 		validPlay ? computerPlay() : validPlay;
 	})
 );
+
+DOM.newGameBtn.addEventListener('click', newGame);
