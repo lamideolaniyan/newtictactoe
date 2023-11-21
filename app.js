@@ -114,6 +114,41 @@ const newGame = () => {
 	});
 };
 
+const getWinner = () => {
+	/**
+	 * 678
+	 * 345
+	 * 012
+	 *
+	 * 012
+	 * 048
+	 * 036
+	 * 147
+	 * 246
+	 * 258
+	 * 345
+	 * 678
+	 */
+
+	if (
+		(playerArr.includes(0) && playerArr.includes(1) && playerArr.includes(2)) ||
+		(playerArr.includes(0) && playerArr.includes(4) && playerArr.includes(8)) ||
+		(playerArr.includes(0) && playerArr.includes(3) && playerArr.includes(6)) ||
+		(playerArr.includes(1) && playerArr.includes(4) && playerArr.includes(7)) ||
+		(playerArr.includes(2) && playerArr.includes(4) && playerArr.includes(6)) ||
+		(playerArr.includes(2) && playerArr.includes(5) && playerArr.includes(8)) ||
+		(playerArr.includes(6) && playerArr.includes(7) && playerArr.includes(8)) ||
+		(playerArr.includes(3) && playerArr.includes(4) && playerArr.includes(5))
+	) {
+		// alert('winner');
+		displayWinner();
+		disableBoard();
+	}
+};
+
+const disableBoard = () => {};
+const displayWinner = () => {};
+
 // EVENT LISTENERS
 DOM.startPage.addEventListener('submit', (e) => {
 	startGame();
@@ -123,6 +158,7 @@ DOM.startPage.addEventListener('submit', (e) => {
 DOM.cellArr.forEach((cell) =>
 	cell.addEventListener('click', (e) => {
 		const validPlay = getCell(e.target);
+		getWinner();
 		validPlay ? computerPlay() : validPlay;
 	})
 );
