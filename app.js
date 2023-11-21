@@ -140,13 +140,16 @@ const getWinner = () => {
 		(playerArr.includes(6) && playerArr.includes(7) && playerArr.includes(8)) ||
 		(playerArr.includes(3) && playerArr.includes(4) && playerArr.includes(5))
 	) {
-		// alert('winner');
-		displayWinner();
-		disableBoard();
+		alert('winner');
+		return true;
 	}
 };
 
-const disableBoard = () => {};
+const disableBoard = () => {
+	DOM.cellArr.forEach((cell) => {
+		cell.disabled();
+	});
+};
 const displayWinner = () => {};
 
 // EVENT LISTENERS
@@ -157,9 +160,14 @@ DOM.startPage.addEventListener('submit', (e) => {
 
 DOM.cellArr.forEach((cell) =>
 	cell.addEventListener('click', (e) => {
-		const validPlay = getCell(e.target);
-		getWinner();
-		validPlay ? computerPlay() : validPlay;
+		const validWinner = getWinner();
+		if (validWinner) {
+			e.preventDefault();
+		} else {
+			const validPlay = getCell(e.target);
+			getWinner();
+			validPlay ? computerPlay() : validPlay;
+		}
 	})
 );
 
