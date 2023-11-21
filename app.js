@@ -49,17 +49,22 @@ const startGame = () => {
 const getCell = (cell) => {
 	const selectedCell = +cell.dataset.id;
 
-	if (playerArr.indexOf(selectedCell) < 0) {
+	if (
+		playerArr.indexOf(selectedCell) < 0 &&
+		compArr.indexOf(selectedCell) < 0
+	) {
 		playerArr.push(selectedCell);
+		console.log(playerArr);
+		currentPlayer = player1;
+		displayMarker(cell);
+
+		return true;
 	}
-	console.log(playerArr);
-	currentPlayer = player1;
-	displayMarker(cell);
 };
 
 const computerPlay = () => {
-	// const compCell = Math.round(Math.random() * 8);
 	let compCell;
+	// SHUFFLING THE CELL ID ARRAY
 	cellIdArr.sort(() => Math.random() - 0.5);
 
 	for (let i = 0; i < cellIdArr.length; i++) {
@@ -67,8 +72,7 @@ const computerPlay = () => {
 			compCell = cellIdArr[i];
 			compArr.push(compCell);
 			cellIdArr.splice(i, 1);
-			console.log(compCell);
-			console.log(cellIdArr);
+			console.log(compArr);
 			break;
 		}
 	}
@@ -99,7 +103,7 @@ DOM.startPage.addEventListener('submit', (e) => {
 
 DOM.cellArr.forEach((cell) =>
 	cell.addEventListener('click', (e) => {
-		getCell(e.target);
-		computerPlay();
+		const validPlay = getCell(e.target);
+		validPlay ? computerPlay() : validPlay;
 	})
 );
