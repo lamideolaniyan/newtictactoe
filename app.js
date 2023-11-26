@@ -57,7 +57,6 @@ const getCell = (cell) => {
 		playerArr.push(selectedCell);
 		console.log(playerArr);
 		currentPlayer = player1;
-		displayMarker(cell);
 
 		return true;
 	}
@@ -78,7 +77,7 @@ const computerPlay = () => {
 		}
 	}
 	currentPlayer = player2;
-	displayMarker(compCell);
+	return compCell;
 };
 
 const displayMarker = (cell) => {
@@ -140,7 +139,19 @@ const getWinner = () => {
 		(playerArr.includes(6) && playerArr.includes(7) && playerArr.includes(8)) ||
 		(playerArr.includes(3) && playerArr.includes(4) && playerArr.includes(5))
 	) {
-		alert('winner');
+		alert(player1 + ' is the winner!');
+		return true;
+	} else if (
+		(compArr.includes(0) && compArr.includes(1) && compArr.includes(2)) ||
+		(compArr.includes(0) && compArr.includes(4) && compArr.includes(8)) ||
+		(compArr.includes(0) && compArr.includes(3) && compArr.includes(6)) ||
+		(compArr.includes(1) && compArr.includes(4) && compArr.includes(7)) ||
+		(compArr.includes(2) && compArr.includes(4) && compArr.includes(6)) ||
+		(compArr.includes(2) && compArr.includes(5) && compArr.includes(8)) ||
+		(compArr.includes(6) && compArr.includes(7) && compArr.includes(8)) ||
+		(compArr.includes(3) && compArr.includes(4) && compArr.includes(5))
+	) {
+		alert('AI is the winner!');
 		return true;
 	}
 };
@@ -158,15 +169,20 @@ DOM.startPage.addEventListener('submit', (e) => {
 	e.preventDefault();
 });
 
+// setInterval(getWinner, 200);
+
 DOM.cellArr.forEach((cell) =>
 	cell.addEventListener('click', (e) => {
 		const validWinner = getWinner();
+		const validPlay = getCell(e.target);
 		if (validWinner) {
 			e.preventDefault();
 		} else {
-			const validPlay = getCell(e.target);
-			getWinner();
-			validPlay ? computerPlay() : validPlay;
+			displayMarker(cell);
+			if (validPlay) {
+				const compCell = computerPlay();
+				displayMarker(compCell);
+			}
 		}
 	})
 );
