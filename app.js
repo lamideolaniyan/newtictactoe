@@ -63,32 +63,37 @@ const getCell = (cell) => {
 };
 
 const computerPlay = () => {
-	let compCell;
-	// SHUFFLING THE CELL ID ARRAY
-	cellIdArr.sort(() => Math.random() - 0.5);
+	const validWinner = getWinner();
+	if (!validWinner) {
+		let compCell;
+		// SHUFFLING THE CELL ID ARRAY
+		cellIdArr.sort(() => Math.random() - 0.5);
 
-	for (let i = 0; i < cellIdArr.length; i++) {
-		if (playerArr.indexOf(cellIdArr[i]) < 0) {
-			compCell = cellIdArr[i];
-			compArr.push(compCell);
-			cellIdArr.splice(i, 1);
-			console.log(compArr);
-			break;
+		for (let i = 0; i < cellIdArr.length; i++) {
+			if (playerArr.indexOf(cellIdArr[i]) < 0) {
+				compCell = cellIdArr[i];
+				compArr.push(compCell);
+				cellIdArr.splice(i, 1);
+				console.log(compArr);
+				break;
+			}
 		}
+		currentPlayer = player2;
+		return compCell;
 	}
-	currentPlayer = player2;
-	return compCell;
 };
 
 const displayMarker = (cell) => {
-	if (currentPlayer === player1) {
-		cell.textContent = marker1;
-	} else if (currentPlayer === player2) {
-		DOM.cellArr.forEach((c) => {
-			if (+c.dataset.id === cell) {
-				c.textContent = marker2;
-			}
-		});
+	if (cell) {
+		if (currentPlayer === player1) {
+			cell.textContent = marker1;
+		} else if (currentPlayer === player2) {
+			DOM.cellArr.forEach((c) => {
+				if (+c.dataset.id === cell) {
+					c.textContent = marker2;
+				}
+			});
+		}
 	}
 };
 
@@ -169,8 +174,6 @@ DOM.startPage.addEventListener('submit', (e) => {
 	e.preventDefault();
 });
 
-// setInterval(getWinner, 200);
-
 DOM.cellArr.forEach((cell) =>
 	cell.addEventListener('click', (e) => {
 		const validWinner = getWinner();
@@ -178,7 +181,7 @@ DOM.cellArr.forEach((cell) =>
 		if (validWinner) {
 			e.preventDefault();
 		} else {
-			displayMarker(cell);
+			displayMarker(e.target);
 			if (validPlay) {
 				const compCell = computerPlay();
 				displayMarker(compCell);
