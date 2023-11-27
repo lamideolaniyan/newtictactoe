@@ -77,7 +77,6 @@ const computerPlay = () => {
 			}
 		}
 		currentPlayer = player2;
-		console.log(compCell);
 		getWinner();
 		return compCell;
 	}
@@ -185,7 +184,6 @@ DOM.cellArr.forEach((cell) =>
 			if (validPlay) {
 				const compCell = computerPlay();
 				displayMarker(compCell);
-				console.log(compCell);
 			}
 		}
 	})

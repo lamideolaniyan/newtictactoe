@@ -87,6 +87,31 @@ a:visited {
 	z-index: 10000;
 	transition: all 0.5s ease;
 }
+
+.winner-display {
+	height: 200%;
+	width: 300%;
+	position: absolute;
+	top: -50%;
+	left: -100%;
+	background-color: rgba(0, 0, 0, 0.247);
+	backdrop-filter: blur(2px);
+	box-shadow: var(--shadow-light);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
+	color: white;
+	font-size: 8rem;
+	letter-spacing: 1rem;
+	font-weight: 400;
+}
+
+.winner-text {
+	/* color: greenyellow; */
+}
+
 .board {
 	display: flex;
 	flex-direction: column;
