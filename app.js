@@ -55,7 +55,6 @@ const getCell = (cell) => {
 		compArr.indexOf(selectedCell) < 0
 	) {
 		playerArr.push(selectedCell);
-		console.log(playerArr);
 		currentPlayer = player1;
 
 		return true;
@@ -74,17 +73,18 @@ const computerPlay = () => {
 				compCell = cellIdArr[i];
 				compArr.push(compCell);
 				cellIdArr.splice(i, 1);
-				console.log(compArr);
 				break;
 			}
 		}
 		currentPlayer = player2;
+		console.log(compCell);
+		getWinner();
 		return compCell;
 	}
 };
 
 const displayMarker = (cell) => {
-	if (cell) {
+	if (cell || cell === 0) {
 		if (currentPlayer === player1) {
 			cell.textContent = marker1;
 		} else if (currentPlayer === player2) {
@@ -185,6 +185,7 @@ DOM.cellArr.forEach((cell) =>
 			if (validPlay) {
 				const compCell = computerPlay();
 				displayMarker(compCell);
+				console.log(compCell);
 			}
 		}
 	})
