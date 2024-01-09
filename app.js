@@ -22,6 +22,8 @@ const DOM = {
 	startPage: document.querySelector('.game'),
 	cellArr: Array.from(document.querySelectorAll('.cell')),
 	newGameBtn: document.querySelector('.newBtn'),
+	winnerDisplay: document.querySelector('.winner-display'),
+	winnerName: document.querySelector('.winner-text'),
 };
 
 const startGame = () => {
@@ -117,7 +119,7 @@ const newGame = () => {
 	});
 };
 
-const getWinner = () => {
+const getWinner = (player1) => {
 	/**
 	 * 678
 	 * 345
@@ -143,8 +145,7 @@ const getWinner = () => {
 		(playerArr.includes(6) && playerArr.includes(7) && playerArr.includes(8)) ||
 		(playerArr.includes(3) && playerArr.includes(4) && playerArr.includes(5))
 	) {
-		alert(player1 + ' is the winner!');
-		return true;
+		return player1;
 	} else if (
 		(compArr.includes(0) && compArr.includes(1) && compArr.includes(2)) ||
 		(compArr.includes(0) && compArr.includes(4) && compArr.includes(8)) ||
@@ -155,8 +156,7 @@ const getWinner = () => {
 		(compArr.includes(6) && compArr.includes(7) && compArr.includes(8)) ||
 		(compArr.includes(3) && compArr.includes(4) && compArr.includes(5))
 	) {
-		alert('AI is the winner!');
-		return true;
+		return 'AI';
 	}
 };
 
@@ -165,7 +165,11 @@ const disableBoard = () => {
 		cell.disabled();
 	});
 };
-const displayWinner = () => {};
+const displayWinner = (winner) => {
+	console.log(DOM.winnerName);
+	DOM.winnerName.textContent = winner;
+	DOM.winnerDisplay.style.display = 'flex';
+};
 
 // EVENT LISTENERS
 DOM.startPage.addEventListener('submit', (e) => {
@@ -175,10 +179,11 @@ DOM.startPage.addEventListener('submit', (e) => {
 
 DOM.cellArr.forEach((cell) =>
 	cell.addEventListener('click', (e) => {
-		const validWinner = getWinner();
+		const validWinner = getWinner(player1);
 		const validPlay = getCell(e.target);
 		if (validWinner) {
 			e.preventDefault();
+			displayWinner(validWinner);
 		} else {
 			displayMarker(e.target);
 			if (validPlay) {
@@ -190,3 +195,7 @@ DOM.cellArr.forEach((cell) =>
 );
 
 DOM.newGameBtn.addEventListener('click', newGame);
+
+DOM.winnerDisplay.addEventListener('click', (e) => {
+	e.target.style.display = 'none';
+});
